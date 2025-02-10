@@ -1,0 +1,708 @@
+{
+  "columns": [
+    {
+      "name": "ItemTitle",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "OtherTitle",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "IsCollection",
+      "type": "text",
+      "required": true,
+      "default": "N"
+    },
+    {
+      "name": "ComposerID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "LyricistID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "ArrangerID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "PublisherID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "SupplierID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "FormatID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "AccompanimentID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "ArrangementID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "KeyID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "SkillID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "SopranoID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "AltoID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "TenorID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "BassID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "SeasonID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "OwnerID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "HandbellEnsembleID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "CollectionID",
+      "type": "int",
+      "required": false
+    },
+    {
+      "name": "PageNumber",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "StockNumber",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "Copyright",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "Duration",
+      "type": "float",
+      "required": false
+    },
+    {
+      "name": "TimeSignature",
+      "type": "itext",
+      "required": false
+    },
+    {
+      "name": "ProgramNotes",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "Comments",
+      "type": "text",
+      "required": false
+    }
+  ],
+  "multiple-links": [
+    {
+      "name": "Keywords",
+      "table": "LibraryItemKeyword",
+      "type": "multiple-links",
+      "link_id": "LibraryKeyword"
+    },
+    {
+      "name": "Tags",
+      "table": "LibraryItemTag",
+      "type": "multiple-links",
+      "link_id": "LibraryTag"
+    }
+  ],
+  "multiple-subrecords": [
+    {
+      "name": "Inventories",
+      "type": "multiple-records",
+      "table": "LibraryInventory",
+      "primary_key": "InventoryID",
+      "columns": [
+        {
+          "name": "InStock",
+          "type": "int"
+        },
+        {
+          "name": "InStockDate",
+          "type": "date"
+        },
+        {
+          "name": "StorageLocation",
+          "type": "text"
+        },
+        {
+          "name": "LatestPrice",
+          "type": "float"
+        },
+        {
+          "name": "AcquireCondition",
+          "type": "text"
+        },
+        {
+          "name": "Comments",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "Loans",
+      "type": "multiple-records",
+      "table": "LibraryLoan",
+      "primary_key": "LoanID",
+      "columns": [
+        {
+          "name": "LoanRecipient",
+          "type": "text"
+        },
+        {
+          "name": "LoanDate",
+          "type": "date"
+        },
+        {
+          "name": "LoanReturned",
+          "type": "date"
+        },
+        {
+          "name": "Comments",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "Parts",
+      "type": "multiple-records",
+      "table": "LibraryPart",
+      "primary_key": "PartID",
+      "columns": [
+        {
+          "name": "PartName",
+          "type": "text"
+        },
+        {
+          "name": "InventoryDate",
+          "type": "date"
+        },
+        {
+          "name": "OnHand",
+          "type": "int"
+        },
+        {
+          "name": "Needed",
+          "type": "int"
+        },
+        {
+          "name": "OnOrder",
+          "type": "int"
+        },
+        {
+          "name": "Loaned",
+          "type": "int"
+        },
+        {
+          "name": "Comments",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "Performances",
+      "type": "multiple-records",
+      "table": "LibraryPerformance",
+      "primary_key": "PerformanceID",
+      "columns": [
+        {
+          "name": "PerformanceDate",
+          "type": "date"
+        },
+        {
+          "name": "Comments",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "tables": {
+    "LibraryAccompaniment": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "AccompanimentID"
+        ]
+      },
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ]
+    },
+    "LibraryArrangement": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "ArrangementID"
+        ]
+      },
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ]
+    },
+    "LibraryCompany": {
+      "primary_key": "CompanyID",
+      "display": "CompanyName",
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "PublisherID",
+          "SupplierID"
+        ]
+      },
+      "columns": [
+        "CompanyName",
+        "WebSite",
+        "Address",
+        "City",
+        "State",
+        "ZIPCode",
+        "Phone",
+        "PhoneNotes",
+        "Email",
+        "Comments"
+      ]
+    },
+    "LibraryFormat": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "FormatID"
+        ]
+      }
+    },
+    "LibraryHandbellEnsemble": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "HandbellEnsembleID"
+        ]
+      }
+    },
+    "LibraryKey": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "KeyID"
+        ]
+      }
+    },
+    "LibraryKeyword": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItemKeyword",
+        "columns": [
+          "LibraryKeyword"
+        ]
+      }
+    },
+    "LibraryOwner": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "OwnerID"
+        ]
+      }
+    },
+    "LibraryPerson": {
+      "primary_key": "PersonID",
+      "columns": [
+        "LastName",
+        "FirstName",
+        "Dates",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "ComposerID",
+          "ArrangerID",
+          "LyricistID"
+        ]
+      }
+    },
+    "LibrarySeason": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "SeasonID"
+        ]
+      }
+    },
+    "LibrarySkill": {
+      "primary_key": "LookupID",
+      "display": "LookupValue",
+      "columns": [
+        "LookupValue",
+        "SortPosition",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItem",
+        "columns": [
+          "SkillID",
+          "SopranoID",
+          "AltoID",
+          "TenorID",
+          "BassID"
+        ]
+      }
+    },
+    "LibraryTag": {
+      "primary_key": "TagID",
+      "display": "TagName",
+      "columns": [
+        "TagGroup",
+        "TagName",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryItemTag",
+        "columns": [
+          "LibraryTag"
+        ]
+      }
+    },
+    "LibraryTagGroup": {
+      "primary_key": "TagGroupID",
+      "display": "TagGroupName",
+      "columns": [
+        "TagGroupName",
+        "Comments"
+      ],
+      "used_by": {
+        "table": "LibraryTag",
+        "columns": [
+          "TagGroup"
+        ]
+      }
+    }
+  },
+  "record_types": {
+    "accompaniment": "LibraryAccompaniment",
+    "arrangement": "LibraryArrangement",
+    "collection": "LibraryCollection",
+    "company": "LibraryCompany",
+    "format": "LibraryFormat",
+    "handbell-ensemble": "LibraryHandbellEnsemble",
+    "key": "LibraryKey",
+    "keyword": "LibraryKeyword",
+    "music": "LibraryItem",
+    "owner": "LibraryOwner",
+    "person": "LibraryPerson",
+    "season": "LibrarySeason",
+    "skill": "LibrarySkill",
+    "tag": "LibraryTag",
+    "tag-group": "LibraryTagGroup",
+    "user": "login_account"
+  },
+  "lookup_tables": {
+    "accompaniment": ["LibraryAccompaniment", ["LookupValue"], "LookupID"],
+    "arrangement": ["LibraryArrangement", ["LookupValue"], "LookupID"],
+    "collection": ["LibraryItem", ["ItemTitle"], "ItemID"],
+    "company": ["LibraryCompany", ["CompanyName"], "CompanyID"],
+    "handbell-ensemble": [
+      "LibraryHandbellEnsemble",
+      ["LookupValue"],
+      "LookupID"
+    ],
+    "key": ["LibraryKey", ["LookupValue"], "LookupID"],
+    "keyword": ["LibraryKeyword", ["LookupValue"], "LookupID"],
+    "owner": ["LibraryOwner", ["LookupValue"], "LookupID"],
+    "person": [
+      "LibraryPerson",
+      ["LastName", "FirstName", "Dates"],
+      "PersonID"
+    ],
+    "season": ["LibrarySeason", ["LookupValue"], "LookupID"],
+    "skill": ["LibrarySkill", ["LookupValue"], "LookupID"],
+    "tag": ["LibraryTag", ["TagName"], "TagID"],
+    "tag-group": ["LibraryTagGroup", "TagGroupName", "TagGroupID"]
+  },
+  "report_columns": {
+    "Accompaniment": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibraryAccompaniment",
+      "value_key": "LookupID",
+      "join_key": "AccompanimentID",
+      "width": 30
+    },
+    "Arrangement": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibraryArrangement",
+      "value_key": "LookupID",
+      "join_key": "ArrangementID",
+      "width": 15
+    },
+    "Arranger": {
+      "type": "person",
+      "join_key": "ArrangerID",
+      "width": 25
+    },
+    "Tags": {
+      "type": "multiple",
+      "value_column": "TagName",
+      "value_table": "LibraryTag",
+      "value_key": "TagID",
+      "join_table": "LibraryItemTag",
+      "join_key": "LibraryTag",
+      "width": 25
+    },
+    "Collection": {
+      "type": "lookup",
+      "value_column": "ItemTitle",
+      "value_table": "LibraryItem",
+      "value_key": "ItemID",
+      "join_key": "CollectionID",
+      "width": 25
+    },
+    "Comments": {
+      "type": "direct",
+      "value_column": "Comments",
+      "width": 75
+    },
+    "Composer": {
+      "type": "person",
+      "join_key": "ComposerID",
+      "width": 35
+    },
+    "Copies On Hand": {
+      "type": "inventory",
+      "value_column": "LPAD(CAST(InStock AS CHAR), 5, '0')",
+      "width": 15
+    },
+    "Date Entered": {
+      "type": "direct",
+      "value_column": "DateAdded",
+      "width": 25
+    },
+    "Difficulty": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibrarySkill",
+      "value_key": "LookupID",
+      "join_key": "SkillID",
+      "width": 8
+    },
+    "Duration": {
+      "type": "direct",
+      "value_column": "Duration",
+      "format": "%10.2f",
+      "width": 10
+    },
+    "Entered By": {
+      "type": "lookup",
+      "value_column": "account_fullname",
+      "value_table": "login_account",
+      "value_key": "account_name",
+      "join_key": "AddedBy",
+      "width": 25
+    },
+    "Handbell Ensemble": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibraryHandbellEnsemble",
+      "value_key": "LookupId",
+      "join_key": "HandbellEnsembleID",
+      "width": 25
+    },
+    "Item ID": {
+      "type": "key",
+      "format": "%05d",
+      "width": 8
+    },
+    "Key": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibraryKey",
+      "value_key": "LookupID",
+      "join_key": "KeyID",
+      "width": 8
+    },
+    "Keywords": {
+      "type": "multiple",
+      "value_column": "LookupValue",
+      "value_table": "LibraryKeyword",
+      "value_key": "LookupID",
+      "join_table": "LibraryItemKeyword",
+      "join_key": "LibraryKeyword",
+      "width": 25
+    },
+    "Last Performance": {
+      "type": "last-performance",
+      "width": 25
+    },
+    "Lyricist": {
+      "type": "person",
+      "join_key": "LyricistID",
+      "width": 25
+    },
+    "Location": {
+      "type": "inventory",
+      "value_column": "StorageLocation",
+      "width": 25
+    },
+    "Occasion": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibrarySeason",
+      "value_key": "LookupID",
+      "join_key": "SeasonID",
+      "width": 20
+    },
+    "On Loan To": {
+      "type": "multiple",
+      "value_column": "LoanRecipient",
+      "value_table": "LibraryLoan",
+      "condition": "WHERE LoanReturned IS NULL",
+      "width": 25
+    },
+    "Other Title": {
+      "type": "direct",
+      "value_column": "OtherTitle",
+      "width": 35
+    },
+    "Owner": {
+      "type": "lookup",
+      "value_column": "LookupValue",
+      "value_table": "LibraryOwner",
+      "value_key": "LookupID",
+      "join_key": "OwnerID",
+      "width": 20
+    },
+    "Performances": {
+      "type": "multiple",
+      "value_column": "PerformanceDate",
+      "value_table": "LibraryPerformance",
+      "width": 25
+    },
+    "Program Notes": {
+      "type": "direct",
+      "value_column": "ProgramNotes",
+      "width": 25
+    },
+    "Publisher": {
+      "type": "lookup",
+      "value_column": "CompanyName",
+      "value_table": "LibraryCompany",
+      "value_key": "CompanyID",
+      "join_key": "PublisherID",
+      "width": 35
+    },
+    "Supplier": {
+      "type": "lookup",
+      "value_column": "CompanyName",
+      "value_table": "LibraryCompany",
+      "value_key": "CompanyID",
+      "join_key": "SupplierID",
+      "width": 35
+    },
+    "Title": {
+      "type": "direct",
+      "value_column": "ItemTitle",
+      "width": 50
+    },
+    "default": {
+      "width": 25
+    }
+  }
+}

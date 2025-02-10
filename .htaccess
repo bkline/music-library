@@ -1,0 +1,15 @@
+# Enable rewrite engine
+RewriteEngine On
+RewriteBase /library/
+
+# Redirect base request to the Vite build output
+RewriteRule ^$ dist/index.html [L]
+
+# Handle requests to the PHP backend
+RewriteRule ^api/(.*)$ api/$1 [L]
+
+# Redirect all other requests to the Vite build output, excluding static assets
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/library/dist/assets/
+RewriteRule ^ dist/index.html [L]

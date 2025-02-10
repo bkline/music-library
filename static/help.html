@@ -1,0 +1,427 @@
+<style>
+  #help-page fieldset > div { padding-left: .5rem; padding-right: .5rem; }
+  #help-page svg { height: 1em; }
+  #help-page .editor, #help-page .admin { display: none; }
+  .editor #help-page .editor { display: block; }
+  .admin #help-page .admin, .admin #help-page .editor { display: block; }
+</style>
+<div id="help-page">
+  <fieldset>
+    <legend
+      role="button"
+      href="#getting-started"
+      data-bs-toggle="collapse"
+      data-bs-target="#getting-started"
+      aria-expanded="false"
+      aria-controls="getting-started">
+      Getting Started
+    </legend>
+    <div id="getting-started" class="collapse">
+      <p>
+        To use this application, you will need a browser with JavaScript
+        enabled (if you don't know what that means, it's enabled)
+        a connection to the internet, and an active account for the
+        application.
+        The software is mobile-friendly, so you can use it from a desktop
+        computer, a laptop, a tablet, or a smart phone.
+      </p>
+      <p>
+        To log into the catalog application, connect to its
+        <a href="https://ml.rksystems.com/library" target="_blank">address</a>
+        using your browser, enter the account name and password,
+        and click the <strong>Login</strong> button.
+        You will see a page which you can use to browse the music library
+        catalog (see <strong>Browse</strong> below), with a menu for the
+        different sections of the application, including a button for logging
+        out when you are done.
+        If you have not been using the application for a couple of days
+        your session will be logged out and you will be asked to log back
+        in to resume working with the catalog.
+      </p>
+      <p>
+        As you work with the application, it will communicate with alert
+        boxes which tell you when an action you have performed has succeeded,
+        or if problems were encountered (such as validation errors on a form)
+        what those problems are.
+        These notifications will slide off after several seconds
+        (though you can select them to keep them visible longer) or
+        you can dismiss them immediately using the X in the upper right
+        corner of the box.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend
+      role="button"
+      href="#browsse-section"
+      data-bs-toggle="collapse"
+      data-bs-target="#browsse-section"
+      aria-expanded="false"
+      aria-controls="browsse-section">
+      Browsing
+    </legend>
+    <div id="browsse-section" class="collapse">
+      <p>
+        The <strong>Browse Catalog</strong> page lets you scroll
+        through the list of works contained in the music library.
+        You can view the complete catalog, or you can customize the
+        display using various combinations of filtering fields,
+        effectively providing you with a powerful reporting tool.
+        These reports can be used to answer such questions as
+        <em>Which works have not been performed in the past three
+        years?</em> or <em>Which items have we added to the library
+        this year?</em> or <em>Which pieces are out on loan (and to
+        whom)?</em>
+        Reports can be generated as web HTML, displayed in your
+        browser, or as an Excel spreadsheet.
+        The report request form is grouped into four blocks of fields,
+        each of which is collapsed when the form first appears.
+        To open a block of fields, click on its label. To close an
+        open block, click the label bar a second time. When your
+        request is ready, click <strong>Report</strong>
+        at the bottom of the form and your report will be displayed
+        in a newly opened browser tab, or (if you chose to have an
+        Excel report created) downloaded to your computer or mobile
+        device. You can click the
+        <strong>Reset</strong> button whenever you want to restore
+        all the fields on the form to their default values.
+        If you just want to scroll through the entire catalog without
+        any filtering, you can simply click
+        the <strong>Report</strong> button directly, without specifying any
+        filtering options.
+      </p>
+      <p>
+        The <strong>Options</strong> block has fields for the title
+        to be displayed at the top of the report, for the report's
+        format (web page or Excel spreadsheet), how the report should
+        be sorted, and which columns should be displayed on the report.
+        The <strong>Report Title</strong> and <strong>Report Columns</strong>
+        fields are the only ones which are required (though they both have
+        reasonable defaults).
+        To add another column to the report, click on the <strong>Report
+        Columns</strong> field and select the name of the desired column.
+        This is a "typeahead" field, so you can narrow the list of displayed
+        options by typing part of the name of the column you want to add.
+        To control the position of the column on the report after it has
+        been selected for inclusion on the report, drag its name to change
+        where it will appear. The order of the report is determined by
+        the values in the first column. When two or more rows on the
+        report have the same value for the first column, those rows
+        are ordered based on the values in the second column, and so forth.
+        The <strong>Report Sorting</strong> field in this block has an option
+        for specifying that the order of the report should be reversed
+        (for example, to get the most recently-performed pieces at the top of
+        the report).
+        For the most flexibility in reporting power, chose the Excel version
+        of a report so you can take advantage of Excel's filtering,
+        transformation, and sorting options. Excel is also a good option
+        for reports which have many columns, which can be unwieldy in
+        a web table.
+      </p>
+      <p>
+        The <strong>Identification</strong> block of the form has fields
+        for filtering the report based on the works' title(s),
+        creators (composer, arranger, lyricist), whether they appear in
+        a given collection, and what ensemble they have been arranged for.
+        For the <strong>Arrangement</strong> field, you can specify
+        more than one value, and works which have been arranged for any
+        of those ensembles will be selected. Each of these fields has
+        support for controlling the logic for that field's filtering
+        using radio buttons. For example, you can say you want only those
+        works whose titles contain the value you enter, or you can ask
+        to exclude the works whose titles contain the value you type.
+      </p>
+      <p>
+        The <strong>Classification</strong> block has fields for filtering
+        the report based on keywords and/or tags which have been assigned
+        to the works, as well as the occasions (sometimes referred to as
+        "seasons") for which the work is intended to be performed (for
+        example, Hanukkah or Easter or Wedding).
+        Keywords are general terms (for example, "Beauty" or "Justice")
+        which can be assigned to the works to assist in selecting pieces
+        to fit a general theme. By contrast, category tags are grouped
+        for specific purposes. For example, some of the tags are used
+        to identify the performing ensemble for which the work was
+        acquired ("Adult Choir" or "Handbells" for example). There are
+        also tag groups for Faith Traditions, Languages, Periods, and
+        Styles.
+        As with the <strong>Arrangement</strong> field in the previous block,
+        more than one value can be selected for a given field, and works
+        which match <em>any</em> of those values will be included on
+        the report. However, if values are selected for two or more
+        separate fields, only those works which match at least one of
+        the values in each of those fields will be included on the report.
+      </p>
+      <p>
+        The <strong>Activity</strong> block contains fields which you
+        can use to select works based on what we have done with them.
+        For example, you can narrow the report to works which were
+        last performed no later than (or no earlier than) a specified
+        date, or which were added to the catalog no later than (earlier
+        than) a given date, or which are (or are not) out on loan.
+      </p>
+      <p>
+        If the <strong>Item ID</strong> column is included in the report
+        (as it is by default) the value in that column will be wrapped
+        in a link which can be used to open a new browser tab showing
+        the printable version of the full record.
+        When this version is actually printed (or saved as a PDF file,
+        if your browser supports that as an alternative to printing)
+        the banner and menu bar are suppressed so that they do not take up
+        space in the printed output.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset class="editor">
+    <legend
+      role="button"
+      href="#editing-section"
+      data-bs-toggle="collapse"
+      data-bs-target="#editing-section"
+      aria-expanded="false"
+      aria-controls="editing-section">
+      Editing
+    </legend>
+    <div id="editing-section" class="collapse">
+      <p>
+        When you want to add a record to the catalog or modify an
+        existing record, select <strong>Edit</strong> from the menu.
+        At the top of the page which appears is a form you can use
+        to find the record you want to modify (if that's what you're
+        about to do) or to confirm that the record doesn't already exist
+        if you're planning on adding it (always a good thing to check,
+        so we don't end up with duplicate records, although different
+        arrangements of the same musical composition should usually  get
+        their own records in the catalog).
+        To search for a particular record in the catalog, enter at least
+        three characters in the <strong>Title</strong> field or the
+        <strong>Composer Or Arranger</strong> field (or specify values
+        in both fields for further narrowing the search) and click the
+        <strong>Search</strong> button.
+        You will see a selection of the records which contain what you
+        typed in the field(s) in the corresponding portion of those
+        records.
+        For example, if you enter <code>flower</code> in the
+        <strong>Title</strong> field and click the
+        <strong>Filter</strong> button, you will see two records in
+        the list at the bottom of the page (at the time of this writing):
+        <em>Cantan Las Flores</em> and <em>I Got Me Flowers</em>.
+        Even though "flower" does not appear in the title of the first work,
+        it matches because its alternate title is <em>The Flowers Are
+        Singing</em>. For another example, if you enter <code>sheep</code>
+        in the <strong>Title</strong> field, and <code>bach</code> in the
+        <strong>Composer Or Arranger</strong> field, Bach's <em>Sheep May
+        Safely Graze</em> will be found.
+        If there are more than ten records which match the filtering criteria,
+        a row of controls will appear underneath the list for navigating
+        through the pages of matching records.
+      </p>
+      <p>
+        Each work listed has buttons on the right side of the page,
+        appearing as icons representing their functions.
+        The first button is a print button
+        <span class="text-primary"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" class="svg-inline--fa fa-print " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M128 0C92.7 0 64 28.7 64 64l0 96 64 0 0-96 226.7 0L384 93.3l0 66.7 64 0 0-66.7c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0L128 0zM384 352l0 32 0 64-256 0 0-64 0-16 0-16 256 0zm64 32l32 0c17.7 0 32-14.3 32-32l0-96c0-35.3-28.7-64-64-64L64 192c-35.3 0-64 28.7-64 64l0 96c0 17.7 14.3 32 32 32l32 0 0 64c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-64zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"></path></svg></span>
+        which can be used to bring up the full record in a separate browser
+        tab, as described in the <strong>Browsing</strong> section.
+        You can use your browser's <strong>Print</strong> command to
+        send the record to the printer (or a PDF file, if your browser
+        supports that feature).
+      </p>
+      <p>
+        The second button
+        <span class="text-primary"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen-to-square" class="svg-inline--fa fa-pen-to-square " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"></path></svg></span>
+        brings up the form for editing the record.
+        The editing form is organized in multiple groups of fields.
+        The first four groups are for <strong>Identification</strong>
+        of the work being cataloged (titles, keywords, <em>etc.</em>),
+        <strong>Creation</strong> (composer, arranger, lyricist),
+        <strong>Publication</strong> (publisher, supplier, copyright
+        information, and stock number), and <strong>Musical
+        Information</strong> (key, time signature, accompaniment,
+        arrangement, level of difficulty, <em>etc.</em>). The other
+        four groups are for repeatable blocks of information:
+        <strong>Performances</strong> (when performed, comments about
+        the performance), <strong>Inventories</strong> (how many copies,
+        when the inventory was taken, the location and condition of the copies,
+        <em>etc.</em>), <strong>Parts</strong> (for works with orchestral
+        accompaniment), and <strong>Loans</strong> (when and to whom was
+        the work loaned, when was it returned, <em>etc.</em>).
+      </p>
+      <p>
+        When the form is first displayed, all of the eight groups are
+        collapsed to make it easier to navigate to the part(s) of the
+        form with which you need to work. To open a section, click on
+        its title. To collapse an opened section, click on its title
+        again. In the repeatable groups, each of the instances is
+        contained in a nested collapsed set of fields, which can be
+        opened and closed in the same way as the enclosing group.
+        Each of the repeating groups has a button for adding a new
+        instance, and each instance has a button at the far right of
+        its title bar for removing that instance.
+      </p>
+      <p>
+        The fields on the editing form are of differnt types, most
+        of which will be familiar, such as plain text fields (for
+        example, the title fields), dropdown picklists (from which
+        you select a value from a set of valid values), date fields
+        (which provide an interface which makes it easy to select
+        a date), or a checkbox (for indicating that the item being
+        cataloged is actually a collection of individual works, each
+        of which can get its own catalog record). For the person
+        (composer, arranger, lyricist) and company (publisher,
+        supplier) picklists, you can start typing and the selections
+        shown in the dropdown list will be restricted to those which match
+        what you have typed so far, even if what you typed appears
+        in the middle of a value instead of at the beginning, making
+        it easier to find specific values in these very long lists,
+        which contain hundreds of values. If you discover that the
+        person or company which you need to select for a work is not
+        available on the picklist you can add the person or company
+        without leaving your editing form by clicking on the <strong>Add
+        Person</strong> or <strong>Add Company</strong> button at the
+        bottom of the page. A popup overlays the editing form. Fill
+        in at least the required fields, click the <strong>Add Record</strong>
+        button, and the new value will appear in your picklist in the
+        main editing form.
+      </p>
+      <p>
+        When you have finished editing the record for the work,
+        click the <strong>Save</strong> button at the bottom of the page
+        (or <strong>Cancel</strong> if you want to abandon any editing
+        you have done and return to the <strong>Catalog Search</strong>
+        page). If there are any validation errors found on the form
+        when you try to save it, correct them and click the
+        <strong>Save</strong> button again.
+      </p>
+      <p>
+        The final button
+        <span class="text-danger"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg></span>
+        on each line of the list of records in the <strong>Search</strong>
+        results is for deleting the record.
+        That button will be absent if the record is for a collection
+        which is referenced by other records representing works contained
+        in that collection, because you cannot delete such a record
+        while any other records depend on it.
+      </p>
+      <p>
+        To create a new record, click the <strong>Create</strong> button
+        underneath the search form.
+        The form for creating a new record is the same form used for
+        editing an existing record.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset class="editor">
+    <legend
+      role="button"
+      href="#lookup-values-section"
+      data-bs-toggle="collapse"
+      data-bs-target="#lookup-values-section"
+      aria-expanded="false"
+      aria-controls="lookup-values-section">
+      Lookup Values
+    </legend>
+    <div id="lookup-values-section" class="collapse">
+      <p>
+        All of the sets of values used for the picklists on the main
+        editing form can be edited to add new values, as well as edit
+        or remove existing values. In many cases, the order in which
+        each value appears on its picklist can also be controlled.
+        For accounts with permission to edit the catalog, a menu
+        item labeled <strong>Manage Lookup Tables</strong> will be
+        present. Clicking on that menu item opens a submenu from
+        which you can select which value set you wish to edit.
+        A form with a single picklist is then displayed, containing the
+        names of the values currently present in the set. For those
+        lookup sets which support overriding the default sort order
+        which would result from alphabetical ordering, the sort position
+        is also shown for each value on the list. Select an existing
+        value to edit and click the <strong>Edit</strong> button, or
+        click the <strong>Create</strong> button if you need to add a value
+        which is not already in this set.
+      </p>
+      <p>
+        Perform the editing of the value's fields and click the
+        <strong>Save</strong> button. If any validation errors
+        are found, correct them and try again. For values which
+        are used by the catalog's main item records, a count
+        of how many records use this value is displayed at the
+        top of the editing form for the value. Such values cannot
+        be deleted from the list unless all of those uses are
+        removed from the catalog records. If a value has no records
+        which use it, a <strong>Delete</strong> button will appear
+        below the editing form, so you can remove the value from the
+        list if you believe it will no longer be needed.
+      </p>
+      <p>
+        The <strong>Tag Groups</strong> set of values is not used
+        directly by the main catalog records, but is instead used
+        to associate the <strong>Tag</strong> values to a specific
+        category group. These categories can also be edited or added,
+        though as with the other value sets, a tag group cannot
+        be removed while any <strong>Tag</strong> values are members
+        of it.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset class="admin">
+    <legend
+      role="button"
+      href="#accounts-section"
+      data-bs-toggle="collapse"
+      data-bs-target="#accounts-section"
+      aria-expanded="false"
+      aria-controls="accounts-section">
+      Accounts
+    </legend>
+    <div id="accounts-section" class="collapse">
+      <p>
+        The <strong>Accounts</strong> page lists all of the user login
+        accounts in the system, showing the account name, the user's
+        full name, the password, the user's role (editor, viewer, or
+        administrator), whether the account is still active or has
+        been retired, and a comment describing the account.
+        The row for each account is clickable, bringing up a form
+        for editing the account's information. There is also
+        a <strong>Create Account</strong> button above the list
+        of existing accounts for adding new users to the system.
+      </p>
+      <p>
+        The account records are the one type of record which cannot
+        be removed, because that would lose information for the
+        audit trail. If you find that you have created an account
+        by mistake, and the account has never been used, mark the
+        account as inactive, with a note explaining what happened,
+        and then re-use that account record the next time a new
+        user needs to be added to the system. But first look at
+        the <strong>Audit Trail</strong> (see the next section
+        of this manual) to make sure that the account really has
+        never been used before recycling it.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset class="admin">
+    <legend
+      role="button"
+      href="#audit-trail-section"
+      data-bs-toggle="collapse"
+      data-bs-target="#audit-trail-section"
+      aria-expanded="false"
+      aria-controls="audit-trail-section">
+      Audit Trail
+    </legend>
+    <div id="audit-trail-section" class="collapse">
+      <p>
+        The <strong>Audit Trail</strong> page shows the history of all
+        user activity resulting in modifications to the catalog data.
+        This is occasionally useful when a user reports that the software
+        is not behaving as expected. The system doesn't capture all the
+        information needed to reconstruct each version of each record,
+        but it does capture the basic information about each addition,
+        modification, or deletion (who, what, when, which record, which table).
+        The events are displayed in reverse chronological order (that is,
+        newest activity at the top).
+      </p>
+    </div>
+  </fieldset>
+</div>

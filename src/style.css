@@ -1,0 +1,82 @@
+.search-results td { vertical-align: middle; }
+.search-results .actions { white-space: nowrap; width: 1%; padding: 0 1rem; }
+.search-results .actions button { padding: .25rem; }
+#root h1 { margin-bottom: 2rem; }
+h2 { color: #34495e; }
+legend {
+  color: #7f8c8d;
+  background-color: #dfe6e9;
+  padding: .5rem;
+  padding-left: 1rem;
+  border-radius: .5rem;
+}
+legend .trash-button {
+  float: right;
+  margin: 0 1rem;
+  padding: 0;
+  border: none;
+}
+fieldset button { margin-bottom: .5rem; }
+fieldset fieldset legend { font-size: 1rem; }
+.form-label { color: rosybrown; }
+.form-label { color: dodgerblue; }
+.form-label { color: royalblue; }
+.rbt-token .rbt-token-label { white-space: nowrap; }
+.rbt-token-active {
+  background-color: #e7f4ff;
+  color: #007bff;
+}
+.sticky-header th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.report-footer {
+  color: green;
+  font-size: .9rem;
+  font-style: italic;
+}
+.tags-popup fieldset { margin-bottom: 1rem; }
+.tags-popup fieldset legend { font-size: 1.3rem; }
+.form-control::placeholder { opacity: 0.5; }
+.print table.table { width: 25rem; margin: 1rem auto; }
+.print .group { border-bottom: 1px black solid; }
+#title-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: url("../ml-banner.jpg") no-repeat center center;
+  background-size: cover;
+}
+#banner-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+#title-banner h1 {
+  padding: 2rem 0;
+  color: #f8f8f8;
+  margin: 0;
+}
+.logo-text {
+  text-align: center;
+  margin-top: -2rem;
+  xposition: absolute;
+  color: maroon;
+  font-size: 2rem;
+  font-weight: bold;
+}
+@media (min-width: 1024px) {
+  .logo-text { font-size: 4rem; }
+  fieldset fieldset, fieldset button { margin-left: 5%; }
+  fieldset > div { padding-top: 1rem; padding-bottom: 1rem; }
+  fieldset.multiple-wrapper > div { padding-top: 0; padding-bottom: 0; }
+  fieldset xxbutton { margin-top: -1rem; margin-bottom: .5rem; }
+  .print table.table { width: 50rem; }
+}
+.navbar-nav .nav-link.active { font-weight: bold; }

@@ -1,0 +1,11 @@
+@media print {
+  div#title-banner, .Toastify, .navbar {
+    display: none;
+  }
+  .app-wrapper.mt-5, .print.mt-5 {
+    margin-top: 0 !important;
+    max-width: none;
+  }
+  table.table { width: 100% !important; }
+  * { font-size: .9rem; }
+}
