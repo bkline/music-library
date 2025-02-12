@@ -102,6 +102,9 @@ class Job {
             if (!empty($val) || $val === 0 || $val === '0' || $val === 0.0) {
               if ($name === 'IsCollection')
                 $val = $val === 'Y' ? 'Yes' : 'No';
+              if ($name === 'LatestPrice' && is_float($val)) {
+                $val = number_format($val, 2);
+              }
               $values[] = ['label' => $field['label'], 'display' => $val];
             }
           }

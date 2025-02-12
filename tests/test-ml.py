@@ -42,7 +42,7 @@ class Tests(TestCase):
     """Suite of automated tests for the Music Library Catalog"""
 
     DEFAULT_WAIT = 20
-    HOST = "ml.rksystems.com"
+    BASE = "https://ml.rksystems.com"
     LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
     LOG_PATH = "test-library-catalog.log"
     LOGGER = getLogger("catalog-test")
@@ -113,7 +113,7 @@ class Tests(TestCase):
     @cached_property
     def url(self):
         """Base URL for the tests."""
-        return f"https://{self.HOST}/library"
+        return f"{self.BASE}/library"
 
     def assert_page_has(self, expected):
         """Assert that the source text for the page contains a specific value.
@@ -277,18 +277,25 @@ class Tests(TestCase):
         self.set_field_value("ItemTitle", "Test Item Title")
         self.set_field_value("OtherTitle", "Test Item Other Title")
         self.set_field_value("Comments", "Test Item Comments")
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", legend)
+        sleep(1)
         legend.click()
+        sleep(1)
         path = "//legend[contains(text(), 'Publication')]"
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", legend)
         legend.click()
+        sleep(2)
         self.set_field_value("Copyright", "2025 All Rights Reserved")
         self.set_field_value("StockNumber", "Test Item Stock Number")
         legend.click()
+        sleep(1)
         path = "//legend[contains(text(), 'Musical Information')]"
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         self.set_field_value("TimeSignature", "3/4")
         self.set_field_value("Duration", "5.25")
         self.set_field_value("ProgramNotes", "Test Item Program Notes")
@@ -338,6 +345,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("AccompanimentID", By.NAME)
         field.send_keys("Test Accompaniment Value")
         sleep(1)
@@ -390,6 +398,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("ArrangementID", By.NAME)
         field.send_keys("Test Arrangement Value")
         sleep(1)
@@ -445,6 +454,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='PublisherID']", By.CSS_SELECTOR)
         field.send_keys("Test Company Name")
         sleep(1)
@@ -499,6 +509,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("HandbellEnsembleID", By.NAME)
         field.send_keys("Test Handbell Ensemble Value")
         sleep(1)
@@ -551,6 +562,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("KeyID", By.NAME)
         field.send_keys("Test Key Value")
         sleep(1)
@@ -602,6 +614,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='Keywords']", By.CSS_SELECTOR)
         field.send_keys("Test Keyword Value")
         sleep(1)
@@ -655,6 +668,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("OwnerID", By.NAME)
         field.send_keys("Test Owner Value")
         sleep(1)
@@ -703,6 +717,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='ComposerID']", By.CSS_SELECTOR)
         field.send_keys("Person, Test")
         sleep(1)
@@ -761,6 +776,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("SeasonID", By.NAME)
         field.send_keys("Test Season Value")
         sleep(1)
@@ -813,6 +829,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("SkillID", By.NAME)
         field.send_keys("Test Skill Value")
         sleep(1)
@@ -825,6 +842,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         voices = "Soprano", "Alto", "Tenor", "Bass"
         for voice in voices:
             field = self.find(f"{voice}ID", By.NAME)
@@ -903,6 +921,7 @@ class Tests(TestCase):
         legend = self.find(path, By.XPATH)
         self.assertIsNotNone(legend)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='Tags']", By.CSS_SELECTOR)
         field.send_keys("Test Tag Group: Test Tag Name")
         sleep(1)
@@ -934,6 +953,7 @@ class Tests(TestCase):
         button.click()
         legend_path = "//legend[contains(text(), 'Performances')]"
         self.find(legend_path, By.XPATH).click()
+        sleep(1)
         add_performance_path = "//button[contains(text(), 'Add Performance')]"
         self.find(add_performance_path, By.XPATH).click()
         self.set_field_value("Performances__0__PerformanceDate", "12252020")
@@ -946,6 +966,7 @@ class Tests(TestCase):
         self.set_field_value("Performances__2__Comments", "Inspiring!")
         selector = "legend[href='#nested-Performances-1'] button.trash-button"
         self.find(selector, By.CSS_SELECTOR).click()
+        sleep(1)
         self.find(".modal-footer .btn-danger", By.CSS_SELECTOR).click()
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
@@ -960,17 +981,22 @@ class Tests(TestCase):
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
         link.click()
+        sleep(1)
         self.set_field_value("title", "Test Item Title")
         button = self.find("//button[contains(text(), 'Search')]", By.XPATH)
         self.assertIsNotNone(button)
         button.click()
+        sleep(1)
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
         button.click()
+        sleep(1)
         legend_path = "//legend[contains(text(), 'Inventories')]"
         self.find(legend_path, By.XPATH).click()
+        sleep(1)
         add_inventory_path = "//button[contains(text(), 'Add Inventory')]"
         self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
         self.set_field_value("Inventories__0__InStock", "50")
         self.set_field_value("Inventories__0__InStockDate", "01012020")
         self.set_field_value("Inventories__0__StorageLocation", "Shelf 1")
@@ -979,7 +1005,9 @@ class Tests(TestCase):
         self.set_field_value("Inventories__0__Comments", "yada yada yada")
         path = "legend[href='#nested-Inventories-0']"
         self.find(path, By.CSS_SELECTOR).click()
+        sleep(1)
         self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
         self.set_field_value("Inventories__1__InStock", "50")
         self.set_field_value("Inventories__1__InStockDate", "01012022")
         self.set_field_value("Inventories__1__StorageLocation", "Floor")
@@ -988,7 +1016,12 @@ class Tests(TestCase):
         self.set_field_value("Inventories__1__Comments", "yada yada yada")
         path = "legend[href='#nested-Inventories-1']"
         self.find(path, By.CSS_SELECTOR).click()
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
+        button = self.find(add_inventory_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        sleep(1)
+        button.click()
+        sleep(1)
         self.set_field_value("Inventories__2__InStock", "60")
         self.set_field_value("Inventories__2__InStockDate", "01012024")
         self.set_field_value("Inventories__2__StorageLocation", "Shelf 2")
@@ -997,11 +1030,12 @@ class Tests(TestCase):
         self.set_field_value("Inventories__2__Comments", "yada yada yada")
         path = "legend[href='#nested-Inventories-2']"
         self.find(path, By.CSS_SELECTOR).click()
+        sleep(1)
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
         self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
-        sleep(2)
+        sleep(1)
         button.click()
 
     def test_15_parts(self):
@@ -1014,13 +1048,16 @@ class Tests(TestCase):
         button = self.find("//button[contains(text(), 'Search')]", By.XPATH)
         self.assertIsNotNone(button)
         button.click()
+        sleep(1)
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
         button.click()
+        sleep(1)
         legend_path = "//legend[contains(text(), 'Parts')]"
         self.find(legend_path, By.XPATH).click()
-        add_inventory_path = "//button[contains(text(), 'Add Part')]"
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
+        add_part_path = "//button[contains(text(), 'Add Part')]"
+        self.find(add_part_path, By.XPATH).click()
         sleep(1)
         self.set_field_value("Parts__0__PartName", "oboe")
         self.set_field_value("Parts__0__InventoryDate", "01012020")
@@ -1028,32 +1065,40 @@ class Tests(TestCase):
         self.set_field_value("Parts__0__Needed", "2")
         path = "legend[href='#nested-Parts-0']"
         self.find(path, By.CSS_SELECTOR).click()
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
+        self.find(add_part_path, By.XPATH).click()
         sleep(1)
         self.set_field_value("Parts__1__PartName", "clarinet")
         self.set_field_value("Parts__1__InventoryDate", "01012020")
         self.set_field_value("Parts__1__OnHand", "1")
         path = "legend[href='#nested-Parts-1']"
         self.find(path, By.CSS_SELECTOR).click()
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(2)
+        button = self.find(add_part_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        button.click()
         sleep(1)
         self.set_field_value("Parts__2__PartName", "bassoon")
         self.set_field_value("Parts__2__InventoryDate", "01012020")
         self.set_field_value("Parts__2__OnHand", "1")
         path = "legend[href='#nested-Parts-2']"
         self.find(path, By.CSS_SELECTOR).click()
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
+        button = self.find(add_part_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        button.click()
         sleep(1)
         self.set_field_value("Parts__3__PartName", "French horn")
         self.set_field_value("Parts__3__InventoryDate", "01012020")
         self.set_field_value("Parts__3__OnHand", "1")
         path = "legend[href='#nested-Parts-3']"
         self.find(path, By.CSS_SELECTOR).click()
+        sleep(1)
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
         self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
-        sleep(2)
+        sleep(1)
         button.click()
 
     def test_16_loans(self):
@@ -1071,14 +1116,16 @@ class Tests(TestCase):
         button.click()
         legend_path = "//legend[contains(text(), 'Loans')]"
         self.find(legend_path, By.XPATH).click()
-        add_inventory_path = "//button[contains(text(), 'Add Loan')]"
-        self.find(add_inventory_path, By.XPATH).click()
+        sleep(1)
+        add_loan_path = "//button[contains(text(), 'Add Loan')]"
+        self.find(add_loan_path, By.XPATH).click()
         self.set_field_value("Loans__0__LoanRecipient", "Klem Kadiddlehopper")
         self.set_field_value("Loans__0__LoanDate", "01012020")
         self.set_field_value("Loans__0__LoanReturned", "01012022")
         self.set_field_value("Loans__0__Comments", "yada yada yada")
         path = "legend[href='#nested-Loans-0']"
         self.find(path, By.CSS_SELECTOR).click()
+        sleep(1)
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
@@ -1093,6 +1140,7 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Options')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         self.set_field_value("report-title", "Test Report")
         path = "//div[@class='rbt-token-label' and text()='Title']"
         target = self.find(path, By.XPATH)
@@ -1116,8 +1164,10 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         self.set_field_value("title", "Test Item Title")
         legend.click()
+        sleep(1)
         original = self.driver.current_window_handle
         self.run_report()
         report = self.driver.current_window_handle
@@ -1139,8 +1189,10 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         self.set_field_value("creator", "Person, Test")
         legend.click()
+        sleep(1)
         self.run_report("Person, Test")
 
     def test_19_arrangement_report(self):
@@ -1150,11 +1202,13 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='arrangement']", By.CSS_SELECTOR)
         field.send_keys("Test Arrangement Value")
         sleep(1)
         field.send_keys(Keys.TAB)
         legend.click()
+        sleep(1)
         self.run_report()
 
     def test_20_keyword_report(self):
@@ -1169,6 +1223,7 @@ class Tests(TestCase):
         sleep(1)
         field.send_keys(Keys.TAB)
         legend.click()
+        sleep(1)
         self.run_report()
 
     def test_21_occasion_report(self):
@@ -1178,11 +1233,13 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Classification')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='season']", By.CSS_SELECTOR)
         field.send_keys("Test Season Value")
         sleep(1)
         field.send_keys(Keys.TAB)
         legend.click()
+        sleep(1)
         self.run_report()
 
     def test_22_tag_report(self):
@@ -1192,11 +1249,13 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Classification')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='tag']", By.CSS_SELECTOR)
         field.send_keys("Test Tag")
         sleep(1)
         field.send_keys(Keys.TAB)
         legend.click()
+        sleep(1)
         self.run_report()
 
     def test_23_owner_report(self):
@@ -1206,11 +1265,13 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Activity')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         field = self.find("input[testid='owner']", By.CSS_SELECTOR)
         field.send_keys("Test Owner Value")
         sleep(1)
         field.send_keys(Keys.TAB)
         legend.click()
+        sleep(1)
         self.run_report()
 
     def test_24_excel_report(self):
@@ -1220,8 +1281,10 @@ class Tests(TestCase):
         legend_path = "//legend[contains(text(), 'Options')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
+        sleep(1)
         self.find("report-format-excel", By.ID).click()
         legend.click()
+        sleep(1)
         self.run_report(None)
         page = self.get_page_source()
         pattern = re_compile(r"Report Music Library Report \d{8}-(\d+)\.xlsx")
@@ -1373,18 +1436,18 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--username", "-u", required=True)
     parser.add_argument("--password", "-p", required=True)
-    parser.add_argument("--host")
+    parser.add_argument("--base", "-b")
     parser.add_argument("--verbose", "-v", action="store_true")
     parser.add_argument("--tests", "-t", nargs="*")
     opts = parser.parse_args()
     Tests.USERNAME = opts.username
     Tests.PASSWORD = opts.password
-    if opts.host:
-        Tests.HOST = opts.host
+    if opts.base:
+        Tests.BASE = opts.base
     if opts.verbose:
         Tests.VERBOSE = True
     Tests.LOGGER.info("-" * 40)
-    Tests.LOGGER.info("Tests started using %s", Tests.HOST)
+    Tests.LOGGER.info("Tests started using %s", Tests.BASE)
     new_args = ["-v"] if opts.verbose else []
     if opts.tests:
         new_args = opts.tests

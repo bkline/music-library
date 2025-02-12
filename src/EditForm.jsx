@@ -186,9 +186,9 @@ const EditForm = (props) => {
       const content = document.getElementById(fieldsetBodyID);
       const isCollapsed = content.classList.contains('show');
       if (isCollapsed) {
-        $(content).collapse('hide');
+        content.classList.remove('show');
       } else {
-        $(content).collapse('show');
+        content.classList.add('show');
       }
     }
   }

@@ -2,11 +2,12 @@ build/
 dist/
 dross/
 db/
+*.db
 node_modules/
 *.log
 secrets.json
 vendor/
-
+tests/*.pdf
 # For this app, we're going to rely on semver for controlling versions
 # of third-party packages, because specifying exact versions fails on
 # the GoDaddy shared hosting environment, so the lock files have to be
