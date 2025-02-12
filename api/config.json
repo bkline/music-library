@@ -42,11 +42,6 @@
       "required": false
     },
     {
-      "name": "FormatID",
-      "type": "int",
-      "required": false
-    },
-    {
       "name": "AccompanimentID",
       "type": "int",
       "required": false
@@ -320,21 +315,6 @@
         "Comments"
       ]
     },
-    "LibraryFormat": {
-      "primary_key": "LookupID",
-      "display": "LookupValue",
-      "columns": [
-        "LookupValue",
-        "SortPosition",
-        "Comments"
-      ],
-      "used_by": {
-        "table": "LibraryItem",
-        "columns": [
-          "FormatID"
-        ]
-      }
-    },
     "LibraryHandbellEnsemble": {
       "primary_key": "LookupID",
       "display": "LookupValue",
@@ -480,7 +460,6 @@
     "arrangement": "LibraryArrangement",
     "collection": "LibraryCollection",
     "company": "LibraryCompany",
-    "format": "LibraryFormat",
     "handbell-ensemble": "LibraryHandbellEnsemble",
     "key": "LibraryKey",
     "keyword": "LibraryKeyword",
