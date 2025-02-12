@@ -73,9 +73,9 @@ class User {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'INSERT', 'login_account', ?)
+             VALUES (?, ?, 'INSERT', 'login_account', ?)
       ");
-      $stmt->execute([$user, $account_id]);
+      $stmt->execute([$user, $this->session->localtime, $account_id]);
       $this->session->db->commit();
       http_response_code(201);
       return ['status' => 'success', 'account_id' => $account_id];
@@ -120,12 +120,12 @@ class User {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'UPDATE', 'login_account', ?)
+             VALUES (?, ?, 'UPDATE', 'login_account', ?)
       ");
       $user = $this->session->user->name;
       $message = "$user updating account: " . json_encode($values);
       $this->session->debug_log($message);
-      $stmt->execute([$user, $record_id]);
+      $stmt->execute([$user, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success', 'account_id' => $record_id];
     } catch (Exception $e) {

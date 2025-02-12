@@ -52,10 +52,10 @@ class Report {
   // Queue a report for future generation.
   public function post() {
     $parms = $this->session->request_data['parms'];
-    $values = [$this->session->user->name, json_encode($parms)];
+    $values = [$this->session->user->name, $this->session->localtime, json_encode($parms)];
     $stmt = $this->session->db->prepare('
       INSERT INTO report_request (account, requested, parameters)
-           VALUES (?, NOW(6), ?)
+           VALUES (?, ?, ?)
     ');
     $stmt->execute($values);
     $request_id = $this->session->db->lastInsertId();

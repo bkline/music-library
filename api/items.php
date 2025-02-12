@@ -37,9 +37,9 @@ class Item {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'DELETE', 'LibraryItem', ?)
+             VALUES (?, ?, 'DELETE', 'LibraryItem', ?)
       ");
-      $stmt->execute([$this->session->user->name, $record_id]);
+      $stmt->execute([$this->session->user->name, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success'];
     } catch (Exception $e) {
@@ -88,8 +88,8 @@ class Item {
       'DateAdded',
       'AddedBy',
     ];
-    $placeholders = ['?', '?', '?', 'NOW()', '?'];
-    $values = ['', '', '', $this->session->user->name];
+    $placeholders = ['?', '?', '?', '?', '?'];
+    $values = ['', '', '', $this->session->localtime, $this->session->user->name];
     foreach ($this->session->config['columns'] as $column) {
       $name = $column['name'];
       $default = $column['default'] ?? null;
@@ -114,9 +114,9 @@ class Item {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'INSERT', 'LibraryItem', ?)
+             VALUES (?, ?, 'INSERT', 'LibraryItem', ?)
       ");
-      $stmt->execute([$this->session->user->name, $item_id]);
+      $stmt->execute([$this->session->user->name, $this->session->localtime, $item_id]);
       $this->session->db->commit();
       http_response_code(201);
       return ['status' => 'success', 'ItemID' => $item_id];
@@ -136,8 +136,8 @@ class Item {
     $record_id || die('Missing record ID');
     $data = $this->session->request_data;
     $this->session->debug_log(json_encode($data, JSON_PRETTY_PRINT));
-    $assignments = ['DateModified = NOW()', 'ModifiedBy = ?'];
-    $values = [$this->session->user->name];
+    $assignments = ['DateModified = ?', 'ModifiedBy = ?'];
+    $values = [$this->session->localtime, $this->session->user->name];
     foreach ($this->session->config['columns'] as $column) {
       $name = $column['name'];
       $default = $column['default'] ?? null;
@@ -167,9 +167,9 @@ class Item {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'UPDATE', 'LibraryItem', ?)
+             VALUES (?, ?, 'UPDATE', 'LibraryItem', ?)
       ");
-      $stmt->execute([$this->session->user->name, $record_id]);
+      $stmt->execute([$this->session->user->name, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success'];
     } catch (Exception $e) {

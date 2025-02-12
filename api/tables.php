@@ -35,9 +35,14 @@ class Tables {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'DELETE', ?, ?)
+             VALUES (?, ?, 'DELETE', ?, ?)
       ");
-      $stmt->execute([$this->session->user->name, $record_type, $record_id]);
+      $stmt->execute([
+        $this->session->user->name,
+        $this->session->localtime,
+        $record_type,
+        $record_id,
+      ]);
       $this->session->db->commit();
       return ['status' => 'success'];
     } catch (Exception $e) {
@@ -134,9 +139,9 @@ class Tables {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'INSERT', ?, ?)
+             VALUES (?, ?, 'INSERT', ?, ?)
       ");
-      $stmt->execute([$this->session->user->name, $record_type, $id]);
+      $stmt->execute([$this->session->user->name, $this->session->localtime, $record_type, $id]);
       $this->session->db->commit();
       http_response_code(201);
       $response = ['status' => 'success', 'id' => $id, 'display' => $key];
@@ -188,9 +193,14 @@ class Tables {
       $stmt = $this->session->db->prepare("
         INSERT INTO LibraryAudit (AuditWho, AuditWhen, AuditAction,
                                   AuditTable, AuditKey)
-             VALUES (?, NOW(), 'UPDATE', ?, ?)
+             VALUES (?, ?, 'UPDATE', ?, ?)
       ");
-      $stmt->execute([$this->session->user->name, $record_type, $record_id]);
+      $stmt->execute([
+        $this->session->user->name,
+        $this->session->localtime,
+        $record_type,
+        $record_id,
+      ]);
       $this->session->db->commit();
       return ['status' => 'success', 'display' => $display];
     } catch (Exception $e) {
