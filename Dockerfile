@@ -21,7 +21,8 @@ RUN apt update && apt install -y \
     unzip \
     nodejs \
     npm \
-    libonig5
+    libonig5 \
+    sqlite3
 
 # Configure Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
