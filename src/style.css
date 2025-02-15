@@ -47,7 +47,7 @@ fieldset fieldset legend { font-size: 1rem; }
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: url("../ml-banner.jpg") no-repeat center center;
+  background: url("../static/ml-banner.jpg") no-repeat center center;
   background-size: cover;
 }
 #banner-overlay {

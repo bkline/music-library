@@ -54,6 +54,11 @@ class Session {
     $this->user = new User($this);
   }
 
+  // See if we're in maintenance mode.
+  public function check_maintenance_mode() {
+    return ['maintenance_mode' => file_exists('../maintenance-mode')];
+  }
+
   // Conditional logging for debug purposes.
   public function debug_log($what) {
     if ($this->debugging) {

@@ -17,12 +17,14 @@ import Accounts from './Accounts';
 import Account from './Account';
 import Audit from './Audit';
 import Help from './Help';
+import MaintenanceMode from './MaintenanceMode';
 
 const Router = ({ config }) => {
 
   // Keep track of persistent values.
   const [waiting, setWaiting] = useState(true);
   const [user, setUser] = useState(null);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const debugging = !!params.get('debug');
 
@@ -46,6 +48,26 @@ const Router = ({ config }) => {
       }
     };
     fetchUserData();
+  }, []);
+
+  // Make sure we detect the presence of the maintenance-mode flag.
+  useEffect(() => {
+    const checkMaintenanceMode = async () => {
+      try {
+        const response = await fetch('/library/api/maintenance-mode');
+        if (!response.ok) {
+          throw new Error('Network error');
+        }
+        const data = await response.json();
+        setMaintenanceMode(data.maintenance_mode);
+      } catch (error) {
+        console.error('Error checking maintenance mode:', error);
+        setMaintenanceMode(false);
+      }
+    };
+    checkMaintenanceMode();
+    const intervalId = setInterval(checkMaintenanceMode, 60000);
+    return () => clearInterval(intervalId);
   }, []);
   if (waiting) {
     return <div>Waiting ...</div>
@@ -82,25 +104,13 @@ const Router = ({ config }) => {
    */
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      {config.maintenance_mode && user?.admin && (
+      {maintenanceMode && user?.admin && (
         <p className="h2 mb-5 text-danger text-center text-weight-bold font-italic">
           🚧 Site is in maintenance mode! 🚧
         </p>
       )}
-      {config.maintenance_mode && !user?.admin ? (
-        <>
-          <h1>Sorry For The Dust</h1>
-          <div className="d-flex align-items-center">
-            <img
-              src="static/under-construction.jpg"
-              className="float-start me-3"
-            />
-            <p className="text-danger fs-3 ms-2">
-              The Music Library Catalog site is currently undergoing
-              some maintainence work.<br/> We'll be back soon!
-            </p>
-          </div>
-        </>
+      {maintenanceMode && !user?.admin ? (
+        <MaintenanceMode />
       ) : user && user.id === 0 ? (
         <Accounts config={config} user={user} setUser={setUser} debugging={debugging} />
       ) : !user ? (

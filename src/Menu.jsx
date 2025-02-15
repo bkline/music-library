@@ -10,7 +10,10 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 const Menu = ({ config, user, logout }) => {
 
   // Note where we are.
-  const location = useLocation();
+  let location = useLocation().pathname;
+  if (location.endsWith('/')) {
+    location = location.slice(0, -1);
+  }
 
   // Collect the auxiliary tables we need to manage.
   const lookupTables = Object.entries(config.lookup_tables)
@@ -21,7 +24,7 @@ const Menu = ({ config, user, logout }) => {
     <Navbar bg="light" expand="lg">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ms-auto" activeKey={location.pathname}>
+        <Nav className="ms-auto" activeKey={location}>
           <Nav.Link as={Link} to="/library" eventKey="/library">
             Browse
           </Nav.Link>

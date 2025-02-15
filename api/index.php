@@ -34,6 +34,10 @@ case 'GET':
     $session->reply((new \MusicLibrary\Items\Item($session))->get());
     break;
 
+  case 'maintenance-mode':
+    $session->reply($session->check_maintenance_mode());
+    break;
+
   case 'print':
     require 'print.php';
     $session->reply((new \MusicLibrary\Print\Job($session))->get());
