@@ -2,9 +2,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-// import { string } from 'vite-plugin-string';
-//import { createHtmlPlugin } from 'vite-plugin-html';
-// import staticImport from 'vite-plugin-static';
 import {viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
