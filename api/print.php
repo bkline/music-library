@@ -11,6 +11,7 @@ class Job {
   public $id;
   public $item;
   public $lookup_tables;
+  public $session;
 
   public function __construct($session) {
     $this->session = $session;

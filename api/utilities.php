@@ -168,7 +168,7 @@ class Session {
       default:
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
       }
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $message = $e->getMessage();
       error_log($message);
       http_response_code(500);

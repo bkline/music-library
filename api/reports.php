@@ -16,6 +16,7 @@ class Report {
   public $parameters;
   public $rows;
   public $title;
+  public $session;
 
   public function __construct($session) {
     $this->session = $session;

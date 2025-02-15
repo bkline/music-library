@@ -18,7 +18,7 @@ class User {
       $stmt = $this->session->db->prepare($sql);
       $stmt->execute([$record_id]);
       return ['status' => 'success'];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $message = $e->getMessage();
       error_log($message);
       http_response_code(500);
@@ -79,8 +79,8 @@ class User {
       $this->session->db->commit();
       http_response_code(201);
       return ['status' => 'success', 'account_id' => $account_id];
-    } catch (Exception $e) {
-      $this->esssion->db->rollback();
+    } catch (\Exception $e) {
+      $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);
       http_response_code(500);
@@ -128,7 +128,7 @@ class User {
       $stmt->execute([$user, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success', 'account_id' => $record_id];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);

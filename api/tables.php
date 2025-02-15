@@ -45,7 +45,7 @@ class Tables {
       ]);
       $this->session->db->commit();
       return ['status' => 'success'];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);
@@ -147,7 +147,7 @@ class Tables {
       $response = ['status' => 'success', 'id' => $id, 'display' => $key];
       $this->session->debug_log('response: ' . json_encode($response));
       return $response;
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $message = $e->getMessage();
       error_log($message);
       $this->session->db->rollback();
@@ -203,7 +203,7 @@ class Tables {
       ]);
       $this->session->db->commit();
       return ['status' => 'success', 'display' => $display];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);

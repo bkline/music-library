@@ -42,7 +42,7 @@ class Item {
       $stmt->execute([$this->session->user->name, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success'];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);
@@ -120,7 +120,7 @@ class Item {
       $this->session->db->commit();
       http_response_code(201);
       return ['status' => 'success', 'ItemID' => $item_id];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $message = $e->getMessage();
       error_log($message);
       $this->session->db->rollback();
@@ -172,7 +172,7 @@ class Item {
       $stmt->execute([$this->session->user->name, $this->session->localtime, $record_id]);
       $this->session->db->commit();
       return ['status' => 'success'];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->session->db->rollback();
       $message = $e->getMessage();
       error_log($message);
