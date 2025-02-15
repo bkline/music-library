@@ -32,6 +32,7 @@ class Session {
   public $request_uri;
   public $start;
   public $user;
+  public $initialized;
 
   // Assemble the values for the current session.
   public function __construct() {
@@ -42,6 +43,7 @@ class Session {
     $this->method = $_SERVER['REQUEST_METHOD'];
     $this->config = self::load_config();
     $this->db = self::connect_to_database();
+    $this->initialized = $this->has_accounts();
     $this->request_uri = self::get_request_uri();
     $this->localtime = self::get_localtime();
     $this->request_data = self::load_request_data();
@@ -121,6 +123,7 @@ class Session {
     return [
       'status' => 'success',
       'account' => [
+        'id' => $row['account_id'],
         'name' => $row['account_name'],
         'fullname' => $row['account_fullname'],
         'readonly' => !!$row['account_readonly'],
@@ -224,6 +227,12 @@ class Session {
     return $request_uri;
   }
 
+  // See if we have any user accounts.
+  private function has_accounts() {
+    $stmt = $this->db->query('SELECT COUNT(*) FROM login_account');
+    return $stmt->fetchColumn() > 0;
+  }
+
   // Break down the request URI into its parts.
   private function load_path_segments() {
     $path = explode('?', $this->request_uri)[0];
@@ -249,7 +258,12 @@ class User {
 
   public function __construct($session) {
     $username = null;
-    if (!empty($session->id)) {
+    if (!$session->initialized) {
+      $this->id = 0;
+      $this->name = '[init]';
+      $this->fullname = 'Database Initialization';
+      $this->active = $this->admin = true;
+    } elseif (!empty($session->id)) {
       $stmt = $session->db->prepare('
         SELECT sess_user, sess_last, sess_closed
           FROM login_session
@@ -291,7 +305,7 @@ class User {
         }
       }
     }
-    if ($session->endpoint === 'session' && $session->method == 'POST') {
+    if ($session->endpoint === 'session' && $session->method === 'POST') {
       $username = $session->request_data['username'];
     }
     error_log("{$session->method} {$session->request_uri} $username");

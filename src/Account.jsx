@@ -52,6 +52,9 @@ const Account = (props) => {
   };
 
   const makeTitle = () => {
+    if (!props.user.id) {
+      return 'Add First Admin Account';
+    }
     const id = account.account_id ?? null;
     if (!id)
       return 'Adding New Login Account';
@@ -67,6 +70,15 @@ const Account = (props) => {
   return (
     <>
       <h1>{makeTitle()}</h1>
+      {props.user.id === 0 && (
+        <p className="fst-italic">
+          You need to create an account with administrative privileges in order
+          to use this application and to create other user accounts. If the
+          account you create here is not active or not an administrator, you
+          will need to edit the account directly in the database
+          <code>login_account</code> table.
+        </p>
+      )}
       <Form noValidate ref={formRef}>
         {props.config.account.map((row, rowIndex) => (
           <Row className="mb-3" key={rowIndex}>

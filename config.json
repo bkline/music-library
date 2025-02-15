@@ -1,4 +1,5 @@
 {
+  "maintenance_mode": false,
   "fieldsets": [
     {
       "name": "Identification",
