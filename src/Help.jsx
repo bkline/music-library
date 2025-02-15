@@ -11,7 +11,7 @@ const Help = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/library/static/help.html');
+        const response = await fetch('/library/dist/assets/help.html');
         if (!response.ok) {
           throw new Error('File not found.');
         }
