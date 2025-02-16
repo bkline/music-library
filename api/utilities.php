@@ -39,11 +39,11 @@ class Session {
     $this->now = time();
     $this->start = microtime(true);
     $this->debugging = isset($_REQUEST['debug']);
+    $this->db = self::connect_to_database();
+    $this->initialized = $this->has_accounts();
     $this->id = $_COOKIE[self::ID] ?? null;
     $this->method = $_SERVER['REQUEST_METHOD'];
     $this->config = self::load_config();
-    $this->db = self::connect_to_database();
-    $this->initialized = $this->has_accounts();
     $this->request_uri = self::get_request_uri();
     $this->localtime = self::get_localtime();
     $this->request_data = self::load_request_data();
@@ -78,6 +78,7 @@ class Session {
     ');
     $stmt->execute([$this->localtime, $this->id]);
     setcookie(self::ID, '', $this->now - 3600);
+    unset($_COOKIE[self::ID]);
     error_log("closed session {$this->id} at {$this->localtime}");
     return ['status' => 'success', 'message' => 'Logout successful'];
   }
@@ -235,7 +236,12 @@ class Session {
   // See if we have any user accounts.
   private function has_accounts() {
     $stmt = $this->db->query('SELECT COUNT(*) FROM login_account');
-    return $stmt->fetchColumn() > 0;
+    if ($stmt->fetchColumn() > 0) {
+      return true;
+    };
+    setcookie(self::ID, '', $this->now - 3600);
+    unset($_COOKIE[self::ID]);
+    return false;
   }
 
   // Break down the request URI into its parts.

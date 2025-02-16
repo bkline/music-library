@@ -88,6 +88,7 @@ class Tests(TestCase):
         """This gets run at the end of every test."""
 
         sleep(2)
+        self.scroll_to_top()
         button = self.find("logout-button", By.ID)
         self.assertIsNotNone(button)
         button.click()
@@ -259,6 +260,38 @@ class Tests(TestCase):
         with open(filename, "wb") as fp:
             fp.write(b64decode(self.driver.print_page()))
 
+    def scroll_to_bottom(self):
+        """Force the browser to the bottom of the page."""
+
+        get_height = "return document.body.scrollHeight"
+        scroll = "window.scrollTo(0, document.body.scrollHeight);"
+        last_height = self.driver.execute_script(get_height)
+        limit = 5
+        while limit > 0:
+            self.driver.execute_script(scroll)
+            sleep(2)
+            new_height = self.driver.execute_script(get_height)
+            if new_height == last_height:
+                break
+            limit -= 1
+            last_height = new_height
+
+    def scroll_to_top(self):
+        """Force the browser to the top of the page."""
+
+        get_position = "return window.pageYOffset"
+        scroll = "window.scrollTo(0, 0);"
+        last_position = self.driver.execute_script(get_position)
+        limit = 5
+        while limit > 0:
+            self.driver.execute_script(scroll)
+            sleep(2)
+            new_position = self.driver.execute_script(get_position)
+            if new_position == last_position:
+                break
+            limit -= 1
+            last_position = new_position
+
     def test_01_create_item(self):
         """Add a new item to the catalog."""
 
@@ -330,6 +363,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -340,6 +374,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Musical Information')]"
         legend = self.find(path, By.XPATH)
@@ -383,6 +418,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -393,6 +429,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Musical Information')]"
         legend = self.find(path, By.XPATH)
@@ -426,12 +463,14 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//button[contains(text(), 'Add Company')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
         self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
         sleep(2)
+        self.scroll_to_bottom()
         button.click()
         self.assert_page_has("Create New Company Record")
         self.set_field_value("CompanyName", "Test Company Name")
@@ -449,6 +488,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Add Record')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Publication')]"
         legend = self.find(path, By.XPATH)
@@ -469,6 +509,7 @@ class Tests(TestCase):
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
         self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        self.scroll_to_bottom()
         sleep(2)
         button.click()
 
@@ -494,6 +535,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -501,9 +543,11 @@ class Tests(TestCase):
         self.set_field_value("title", "Test Item Title")
         button = self.find("//button[contains(text(), 'Search')]", By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Musical Information')]"
         legend = self.find(path, By.XPATH)
@@ -516,6 +560,7 @@ class Tests(TestCase):
         xpath = "//option[contains(text(), 'Test Handbell Ensemble Value')]"
         option = self.find(xpath, By.XPATH)
         option.click()
+        self.scroll_to_top()
         legend.click()
         sleep(1)
         path = "//button[contains(text(), 'Save')]"
@@ -523,6 +568,7 @@ class Tests(TestCase):
         self.assertIsNotNone(button)
         self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
         sleep(2)
+        self.scroll_to_bottom()
         button.click()
 
     def test_06_key_value(self):
@@ -547,6 +593,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -557,6 +604,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Musical Information')]"
         legend = self.find(path, By.XPATH)
@@ -599,6 +647,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -609,6 +658,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(path, By.XPATH)
@@ -653,6 +703,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -663,6 +714,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(path, By.XPATH)
@@ -696,6 +748,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//button[contains(text(), 'Add Person')]"
         button = self.find(path, By.XPATH)
@@ -753,6 +806,7 @@ class Tests(TestCase):
         self.assert_page_has("Select a value to edit")
         button = self.find("//button[contains(text(), 'Create')]", By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         self.assert_page_has("Editing Lookup Value")
         self.set_field_value("LookupValue", "Test Season Value")
@@ -761,6 +815,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -771,6 +826,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(path, By.XPATH)
@@ -783,6 +839,7 @@ class Tests(TestCase):
         xpath = "//option[contains(text(), 'Test Season Value')]"
         option = self.find(xpath, By.XPATH)
         option.click()
+        self.scroll_to_top()
         legend.click()
         sleep(1)
         path = "//button[contains(text(), 'Save')]"
@@ -814,6 +871,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -824,6 +882,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(path, By.XPATH)
@@ -836,6 +895,7 @@ class Tests(TestCase):
         xpath = "//option[contains(text(), 'Test Skill Value')]"
         option = self.find(xpath, By.XPATH)
         option.click()
+        self.scroll_to_top()
         legend.click()
         sleep(1)
         path = "//legend[contains(text(), 'Musical Information')]"
@@ -866,6 +926,7 @@ class Tests(TestCase):
         button = self.find("//a[contains(text(), 'Lookup Tables')]", By.XPATH)
         self.assertIsNotNone(button)
         button.click()
+        self.scroll_to_bottom()
         path = "a[href='/library/lookup/tag-group']"
         link = self.find(path, By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -881,10 +942,12 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         button = self.find("//a[contains(text(), 'Lookup Tables')]", By.XPATH)
         self.assertIsNotNone(button)
         button.click()
+        self.scroll_to_bottom()
         path = "a[href='/library/lookup/tag']"
         link = self.find(path, By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -893,6 +956,7 @@ class Tests(TestCase):
         self.assert_page_has("Select a value to edit")
         button = self.find("//button[contains(text(), 'Create')]", By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         self.assert_page_has("Editing Lookup Value")
         field = self.find("TagGroup", By.NAME)
@@ -906,6 +970,7 @@ class Tests(TestCase):
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
@@ -916,6 +981,7 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(path, By.XPATH)
@@ -950,23 +1016,31 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         legend_path = "//legend[contains(text(), 'Performances')]"
+        self.scroll_to_bottom()
         self.find(legend_path, By.XPATH).click()
         sleep(1)
         add_performance_path = "//button[contains(text(), 'Add Performance')]"
         self.find(add_performance_path, By.XPATH).click()
         self.set_field_value("Performances__0__PerformanceDate", "12252020")
         self.set_field_value("Performances__0__Comments", "Awesome!")
-        self.find(add_performance_path, By.XPATH).click()
+        button = self.find(add_performance_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        self.scroll_to_bottom()
+        button.click()
         self.set_field_value("Performances__1__PerformanceDate", "12252022")
         self.set_field_value("Performances__1__Comments", "Super!")
-        self.find(add_performance_path, By.XPATH).click()
+        button = self.find(add_performance_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        self.scroll_to_bottom()
+        button.click()
         self.set_field_value("Performances__2__PerformanceDate", "12252024")
         self.set_field_value("Performances__2__Comments", "Inspiring!")
         selector = "legend[href='#nested-Performances-1'] button.trash-button"
         self.find(selector, By.CSS_SELECTOR).click()
-        sleep(1)
+        self.scroll_to_bottom()
         self.find(".modal-footer .btn-danger", By.CSS_SELECTOR).click()
         path = "//button[contains(text(), 'Save')]"
         button = self.find(path, By.XPATH)
@@ -989,9 +1063,11 @@ class Tests(TestCase):
         sleep(1)
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         sleep(1)
         legend_path = "//legend[contains(text(), 'Inventories')]"
+        self.scroll_to_bottom()
         self.find(legend_path, By.XPATH).click()
         sleep(1)
         add_inventory_path = "//button[contains(text(), 'Add Inventory')]"
@@ -1006,7 +1082,9 @@ class Tests(TestCase):
         path = "legend[href='#nested-Inventories-0']"
         self.find(path, By.CSS_SELECTOR).click()
         sleep(1)
-        self.find(add_inventory_path, By.XPATH).click()
+        button = self.find(add_inventory_path, By.XPATH)
+        self.driver.execute_script("arguments[0].scrollIntoView(true)", button)
+        button.click()
         sleep(1)
         self.set_field_value("Inventories__1__InStock", "50")
         self.set_field_value("Inventories__1__InStockDate", "01012022")
@@ -1051,9 +1129,11 @@ class Tests(TestCase):
         sleep(1)
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         sleep(1)
         legend_path = "//legend[contains(text(), 'Parts')]"
+        self.scroll_to_bottom()
         self.find(legend_path, By.XPATH).click()
         sleep(1)
         add_part_path = "//button[contains(text(), 'Add Part')]"
@@ -1113,8 +1193,10 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Edit item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         legend_path = "//legend[contains(text(), 'Loans')]"
+        self.scroll_to_bottom()
         self.find(legend_path, By.XPATH).click()
         sleep(1)
         add_loan_path = "//button[contains(text(), 'Add Loan')]"
@@ -1163,6 +1245,7 @@ class Tests(TestCase):
         legend.click()
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         self.set_field_value("title", "Test Item Title")
@@ -1188,6 +1271,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         self.set_field_value("creator", "Person, Test")
@@ -1201,6 +1285,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Identification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         field = self.find("input[testid='arrangement']", By.CSS_SELECTOR)
@@ -1217,6 +1302,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Classification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         field = self.find("input[testid='keyword']", By.CSS_SELECTOR)
         field.send_keys("Test Keyword Value")
@@ -1232,6 +1318,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Classification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         field = self.find("input[testid='season']", By.CSS_SELECTOR)
@@ -1248,6 +1335,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Classification')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         field = self.find("input[testid='tag']", By.CSS_SELECTOR)
@@ -1264,6 +1352,7 @@ class Tests(TestCase):
         self.assert_page_has("Browse Catalog")
         legend_path = "//legend[contains(text(), 'Activity')]"
         legend = self.find(legend_path, By.XPATH)
+        self.scroll_to_bottom()
         legend.click()
         sleep(1)
         field = self.find("input[testid='owner']", By.CSS_SELECTOR)
@@ -1278,6 +1367,7 @@ class Tests(TestCase):
         """Test the Excel version of a report."""
 
         self.assert_page_has("Browse Catalog")
+        self.scroll_to_bottom()
         legend_path = "//legend[contains(text(), 'Options')]"
         legend = self.find(legend_path, By.XPATH)
         legend.click()
@@ -1320,11 +1410,13 @@ class Tests(TestCase):
         link = self.find("a[href='/library/edit']", By.CSS_SELECTOR)
         self.assertIsNotNone(link)
         link.click()
+        self.scroll_to_bottom()
         self.set_field_value("title", "Test Item Title")
         button = self.find("//button[contains(text(), 'Search')]", By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
-        sleep(1)
+        self.scroll_to_bottom()
         selector = "button[title='Display printable version of item']"
         button = self.find(selector, By.CSS_SELECTOR)
         self.assertIsNotNone(button)
@@ -1391,9 +1483,11 @@ class Tests(TestCase):
         button.click()
         button = self.find("button[title='Delete this item']", By.CSS_SELECTOR)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         button = self.find("//button[contains(text(), 'Delete')]", By.XPATH)
         self.assertIsNotNone(button)
+        self.scroll_to_bottom()
         button.click()
         self.assert_page_has("Successfully deleted Test Item Title.")
         self.assert_page_has("No matching records found.")
@@ -1402,6 +1496,7 @@ class Tests(TestCase):
             button = self.find(path, By.XPATH)
             self.assertIsNotNone(button)
             button.click()
+            self.scroll_to_bottom()
             path = f"a[href='/library/lookup/{name}']"
             link = self.find(path, By.CSS_SELECTOR)
             self.assertIsNotNone(link)
@@ -1422,6 +1517,7 @@ class Tests(TestCase):
             script = "arguments[0].scrollIntoView(true)"
             self.driver.execute_script(script, button)
             sleep(2)
+            self.scroll_to_bottom()
             button.click()
             sleep(1)
             self.assert_page_has("Are you sure you want to delete this value?")

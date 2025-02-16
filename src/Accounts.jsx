@@ -69,8 +69,9 @@ const Accounts = (props) => {
     if (props.user.id === 0) {
       props.setUser(null);
       navigate('/library');
+    } else {
+      fetchAccounts();
     }
-    fetchAccounts();
   };
 
   const handleCancel = () => {
