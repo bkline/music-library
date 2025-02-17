@@ -48,7 +48,7 @@ class User {
     $values = [
       $this->session->request_data['account_name'] ?? null,
       $this->session->request_data['account_fullname'] ?? null,
-      $this->session->request_data['account_password'] ?? null,
+      $password,
       $this->session->request_data['account_comment'] ?? null,
       $this->session->request_data['account_admin'] === true ? 1 : 0,
       $this->session->request_data['account_readonly'] === false ? 0 : 1,
@@ -93,14 +93,16 @@ class User {
     $this->session->verify_is_admin();
     $record_id = $this->session->record_id;
     $record_id || die('Missing record ID');
+    $password = $this->session->request_data['account_password'] ?? null;
     $values = [
       $this->session->request_data['account_name'] ?? null,
       $this->session->request_data['account_fullname'] ?? null,
-      $this->session->request_data['account_password'] ?? null,
+      $password,
       $this->session->request_data['account_comment'] ?? null,
       $this->session->request_data['account_admin'] ? 1 : 0,
       $this->session->request_data['account_readonly'] ? 1 : 0,
       $this->session->request_data['account_status'] ?? null,
+      $password ? password_hash($password, PASSWORD_DEFAULT) : null,
       $record_id,
     ];
     $this->session->db->beginTransaction();
@@ -113,7 +115,8 @@ class User {
                account_comment = ?,
                account_admin = ?,
                account_readonly = ?,
-               account_status = ?
+               account_status = ?,
+               account_hash = ?
          WHERE account_id = ?
       ');
       $stmt->execute($values);
