@@ -215,7 +215,9 @@ class Session {
       }
     }
     $db = new \PDO(...$args);
-    $db->exec("SET NAMES 'utf8'");
+    if (str_starts_with($secrets->database->uri, 'mysql:')) {
+      $db->exec("SET NAMES 'utf8'");
+    }
     return $db;
   }
 
