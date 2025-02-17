@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-const LoginForm = ({ setUser, debugging }) => {
+const LoginForm = ({ setUser, debugging, prod }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -50,6 +50,14 @@ const LoginForm = ({ setUser, debugging }) => {
   return (
     <>
       <h1>Log In</h1>
+      {prod && (
+        <p className="text-danger ms-2">
+          ⚠️ This is a test server. Do not do any production work on this server,
+          as it will not be stored in the actual catalog. If you thought you were
+          logging into the production server, then <a href={prod}>{prod}</a> is
+          the link you want. ⚠️
+        </p>
+      )}
       <Form onSubmit={login}>
         <Form.Group controlId="username">
           <Form.Label>Username</Form.Label>

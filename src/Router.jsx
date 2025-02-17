@@ -24,6 +24,7 @@ const Router = ({ config }) => {
   // Keep track of persistent values.
   const [waiting, setWaiting] = useState(true);
   const [user, setUser] = useState(null);
+  const [prod, setProd] = useState(null);
   const [maintenanceMode, setMaintenanceMode] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const debugging = !!params.get('debug');
@@ -40,6 +41,8 @@ const Router = ({ config }) => {
         const data = await response.json();
         const username = data.name ?? '';
         setUser(username ? data : null);
+        const url = (data.prod ?? '').trim();
+        setProd(url || null);
       } catch (err) {
         console.error('failure', err);
         toast.error(`Failure fetching session information: ${err.message}`);
@@ -114,7 +117,7 @@ const Router = ({ config }) => {
       ) : user && user.id === 0 ? (
         <Accounts config={config} user={user} setUser={setUser} debugging={debugging} />
       ) : !user ? (
-        <LoginForm setUser={setUser} debugging={debugging} />
+        <LoginForm setUser={setUser} debugging={debugging} prod={prod} />
       ) : (
         <>
           <Menu config={config} user={user} logout={logout} />

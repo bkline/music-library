@@ -16,6 +16,7 @@ class Session {
   const CONFIG = __DIR__ . '/config.json';
   const ID = 'MLSESSID';
   const SECRETS = __DIR__ . '/secrets.json';
+  const PROD_URL = __DIR__ . '/prod.url';
 
   public $config;
   public $db;
@@ -85,7 +86,8 @@ class Session {
 
   // Provide information about the currently logged-in user.
   public function get() {
-    return $this->user->active ? $this->user : [];
+    $prod = file_exists(self::PROD_URL) ? file_get_contents(self::PROD_URL) : '';
+    return $this->user->active ? $this->user : ['prod' => trim($prod)];
   }
 
   // Load the information which informs our processing of the app's values.
