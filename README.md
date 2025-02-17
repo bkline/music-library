@@ -200,7 +200,7 @@ used by your own web server for `~/public_html` in these commands.
 ROOT=~/public_html
 mkdir -p $ROOT/library
 cp -r api dist vendor $ROOT/library/
-cp config.json $ROOT/library
+cp config.json .htaccess $ROOT/library
 ```
 
 6. Connect your browser to the new site (for example,
