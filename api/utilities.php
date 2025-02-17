@@ -214,7 +214,9 @@ class Session {
         $args[] = $secrets->database->password;
       }
     }
-    return new \PDO(...$args);
+    $db = new \PDO(...$args);
+    $db->exec("SET NAMES 'utf8'");
+    return $db;
   }
 
   // Construct the standard ISO-formatted string for the current time.
