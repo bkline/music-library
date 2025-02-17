@@ -323,7 +323,9 @@ class User {
     if ($session->endpoint === 'session' && $session->method === 'POST') {
       $username = $session->request_data['username'];
     }
-    error_log("{$session->method} {$session->request_uri} $username");
+    if ($session->request_uri !== '/library/api/maintenance-mode') {
+      error_log("{$session->method} {$session->request_uri} $username");
+    }
   }
 
 }
