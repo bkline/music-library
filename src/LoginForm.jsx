@@ -51,11 +51,11 @@ const LoginForm = ({ setUser, debugging, prod }) => {
     <>
       <h1>Log In</h1>
       {prod && (
-        <p className="text-danger ms-2">
+        <p className="text-danger ms-2 border border-danger rounded p-2">
           ⚠️ This is a test server. Do not do any production work on this server,
           as it will not be stored in the actual catalog. If you thought you were
           logging into the production server, then <a href={prod}>{prod}</a> is
-          the link you want. ⚠️
+          the link you want.
         </p>
       )}
       <Form onSubmit={login}>
