@@ -315,9 +315,9 @@ class User {
           $this->id = $row['account_id'];
           $this->name = $row['account_name'];
           $this->fullname = $row['account_fullname'];
-          $this->readonly = $row['account_readonly'] !== 0;
+          $this->readonly = (int)$row['account_readonly'] !== 0;
           $this->active = $row['account_status'] === 'Active';
-          $this->admin = $row['account_admin'] === 1;
+          $this->admin = (int)$row['account_admin'] === 1;
           $session->debug_log('user=' . json_encode($this));
         }
       }
