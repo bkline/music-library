@@ -156,7 +156,7 @@ const LookupTable = (props) => {
           aria-label={`${table} lookup values`}
           onChange={handleChange}
         >
-          <option>Select a value to edit ...</option>
+          <option value="">Select a value to edit ...</option>
           {values.map(option => (
             <option value={option.id} key={option.id}>
               {option.display}

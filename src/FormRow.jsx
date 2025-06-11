@@ -69,7 +69,7 @@ const FormRow = (props) => {
                     onChange={props.handleChange}
                     isInvalid={!!props.errors[fieldName]}
                   >
-                    <option>
+                    <option value="">
                       {field.required && 'Select an option'}
                       {!field.required && '-- Optional --'}
                     </option>

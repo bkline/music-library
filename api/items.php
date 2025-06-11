@@ -141,7 +141,10 @@ class Item {
     foreach ($this->session->config['columns'] as $column) {
       $name = $column['name'];
       $default = $column['default'] ?? null;
-      $values[] = $data[$name] ?? $default;
+      $value = $data[$name] ?? $default;
+      if (!$column['required'] && $value === '')
+        $value = null;
+      $values[] = $value;
       $assignments[] = "$name = ?";
     }
     $values[] = $record_id;

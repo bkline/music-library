@@ -318,7 +318,7 @@ const Reports = (props) => {
                             value={formData[field.name] ?? ''}
                             onChange={onChange}
                           >
-                            <option>
+                            <option value="">
                               {field.required && 'Select an option'}
                               {!field.required && '-- Optional --'}
                             </option>
