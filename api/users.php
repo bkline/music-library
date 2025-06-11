@@ -32,13 +32,23 @@ class User {
     if (empty($this->session->record_id))
       return $this->list();
     $query = 'SELECT * FROM login_account WHERE account_id = ?';
-    return $this->session->select($query, [$this->session->record_id], 'row');
+    $rec = $this->session->select($query, [$this->session->record_id], 'row');
+    if (!empty($rec)) {
+      $rec['account_readonly'] = (int)$rec['account_readonly'];
+      $rec['account_admin'] = (int)$rec['account_admin'];
+    }
+    return $rec;
   }
 
   // Return the information about the existing user login accounts.
   private function list() {
     $query = 'SELECT * FROM login_account ORDER BY account_name';
-    return $this->session->select($query);
+    $rows = $this->session->select($query);
+    foreach ($rows as &$row) {
+      $row['account_readonly'] = (int)$row['account_readonly'];
+      $row['account_admin'] = (int)$row['account_admin'];
+    }
+    return $rows;
   }
 
   // Save a new user login account record.
