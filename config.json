@@ -827,14 +827,14 @@
     },
     "season": {
       "table_name": "LibrarySeason",
-      "menu_label": "Seasons",
+      "menu_label": "Occasions",
       "primary_key": "LookupID",
-      "display": "Season",
+      "display": "Occasion",
       "rows": [
         [
           {
             "name": "LookupValue",
-            "label": "Season Or Occasion Name",
+            "label": "Occasion Name Or Season",
             "type": "text",
             "required": true,
             "description": "The occasion for which pieces are performed",
@@ -1121,7 +1121,7 @@
       },
       {
         "name": "Classification",
-        "description": "Filter the report by keywords, seasons, tags.",
+        "description": "Filter the report by keywords, occasions, tags.",
         "rows": [
           [
             {
