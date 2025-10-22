@@ -111,7 +111,7 @@ const LookupEditingForm = (props) => {
                   title="Abandon edits"
                   className="btn btn-secondary me-2"
                   onClick={props.onCancel}>Cancel</button>
-          {!usedBy && !isNew &&
+          {usedBy < 1 && !isNew &&
            <ConfirmationButton
              label="Delete"
              title="✋ Confirm Deletion"
